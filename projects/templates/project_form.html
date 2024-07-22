@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block title %}Project Form{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>{% if project %}Update Project{% else %}Create Project{% endif %}</h2>
+    
+    <form method="post" action="{% url 'project_create' %}">
+
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" name="name" maxlength="100" required>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea class="form-control" id="description" name="description" rows="4" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="features">Features</label>
+                <textarea class="form-control" id="features" name="features" rows="3" maxlength="1200"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="start_date">Start Date</label>
+                <input type="date" class="form-control" id="start_date" name="start_date">
+            </div>
+
+            <div class="form-group">
+                <label for="end_date">End Date</label>
+                <input type="date" class="form-control" id="end_date" name="end_date">
+            </div>
+
+            <div class="form-group">
+                <label for="github_link">GitHub Link</label>
+                <input type="url" class="form-control" id="github_link" name="github_link" maxlength="100">
+            </div>
+
+            <div class="form-group">
+                <label for="live_link">Live Link</label>
+                <input type="url" class="form-control" id="live_link" name="live_link" maxlength="100">
+            </div>
+
+            <div class="form-group">
+                <label for="owner">Owner</label>
+                <select class="form-control" id="owner" name="owner">
+                    <!-- Replace with actual Django user options -->
+                    <option value="{{ user.id }}">{{ user }}</option>
+                </select>
+            </div>
+
+
+            <div class="form-group">
+                <label for="project_tags">Project Tags</label>
+                <select class="form-control" id="project_tags" name="project_tags">
+                    <!-- Replace with actual Django tag options -->
+                    {% for t in tags %}
+                        <option value="{{ t.id }}">{{ t.Tag_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+        <button type="submit" class="btn btn-primary">{% if project %}Update{% else %}Create{% endif %}</button>
+    </form>
+</div>
+{% endblock %}

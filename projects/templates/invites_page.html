@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% block title %}Invites{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Invites</h2>
+    
+    <h4>Send Invite</h4>
+    <form x-data="formHandler" @submit.prevent="submit" id="invite-form" action="{% url 'invite_user2' %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="project">Project</label>
+        <select name="project-id" id="project-id">
+            {% for project in projects %}
+            <option value="{{ project.pk }}">{{ project }}</option>
+            {% endfor %}
+        </select>
+        <label for="member">Invite Member (enter User ID):</label>
+        <input type="text" name="username" id="member-id" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Send Invite</button>
+    </form>
+    
+
+
+    <h4 class="mt-4">Received Invites</h4>
+    <ul id="received-invites">
+        {% for invite in invites %}
+        <li>
+            {{ invite.project }} - {{ invite.status }}
+            {% if invite.status == 'pending' %}
+            <form x-data="formHandler" @submit.prevent="submit" id="invite-form" action="{% url 'handle_invite' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" value="{{ invite.id }}" name="invite_id">
+                <input type="hidden" value="accept" name="invite_action">
+                <button class="btn btn-success btn-sm ml-2" >Accept</button>
+            </form>
+            <form x-data="formHandler" @submit.prevent="submit" id="invite-form" action="{% url 'handle_invite' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" value="{{ invite.id }}" name="invite_id">
+                <input type="hidden" value="reject" name="invite_action">
+                <button class="btn btn-danger btn-sm ml-2">Reject</button>
+            </form>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+
+    <h4 class="mt-4">Sent Invites</h4>
+    <ul id="sent-invites">
+        {% for invite in sent_invites %}
+        <li>
+            {{ invite.project }}:{{ invite.member }} - {{ invite.status }}
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+<script>
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('formHandler', () => ({
+            async submit(event) {
+                const form = event.target;
+                const formData = new FormData(form);
+
+                try {
+                    const response = await fetch(form.action, {
+                        method: form.method,
+                        body: formData,
+                    });
+                    const result = await response.json();
+                    console.log(result);    
+                    if (response.ok) {
+                        alert(`Success: ${result.message}\nProject ID: ${result.project_id}\nMember ID: ${result.member_id}`);
+                    } else {
+                        let errorMessages = '';
+                        for (const [field, errors] of Object.entries(result.errors)) {
+                            errorMessages += `${field}: ${errors.join(', ')}\n`;
+                        }
+                        alert(`Error: ${errorMessages}`);
+                    }
+                }
+                catch (error) {
+                alert(`Error: ${error.message}`);
+            }
+            }
+            })
+        )
+    })
+</script>
+{% endblock %}

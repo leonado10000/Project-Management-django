@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block title %} Introduction {% endblock %}
+{% block content %}
+Sorry about that Still working on this
+
+<div>
+    Project display:
+    <br>
+    what are the needs or basics you'd want to showcase in a project showing to a third person. <br>
+    What will bring out the best <br>
+    generaly, I'll take example from linkdin, and github or let's see some other websites, then decide on the layout of the project details page.
+    <br>
+    <br>
+    <hr>
+    So 
+    <ul>
+        <li>name</li>
+        <li>[0] tech stack as tags</li>
+        <li>[0] link to code base</li>
+        <li>[0] live link</li>
+        <li>[0] A description</li>
+        <li>[0] tasks done</li>
+        <li>[0] a brief synopsis: what you achieved through it</li>
+        <li>[0] Number of people involved or organizations</li>
+        <li>[] Photos: worry about this later: max to 5</li>
+        <li>[] references for your project</li>
+
+        <li>[] a start date</li>
+        <li>[] last updated project at</li>
+        <li>[] a clean design no matter what</li>
+
+    </ul> 
+
+    <div style="        display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 10px;
+    row-gap: 10px;">
+    <a href="{% url 'register'  %}"><button type="button" class="btn btn-info"id="text-color-light" style="width: fit-content;">For Students</button></a>
+    <a href="{% url 'register'  %}"><button type="button" class="btn btn-info"id="text-color-light" style="width: fit-content;">For Professions</button></a>
+    <ul class="list-group">
+        <li class="list-group-item"> Track your projects</li>
+        <li class="list-group-item"> API to show case the project outside. fast or rest</li>
+        <li class="list-group-item"> Add infinite number of links
+            <ol>
+                <li>github link</li>
+                <li>linkdin </li>
+
+            </ol>
+        </li>
+    </ul>
+    
+    <ul id="item-color" class="list-group">
+        <li class="list-group-item"> Have a project owner, members</li>
+        <li class="list-group-item"> Create tasks, set time limits, add/remove warning emails about task deadlines</li>
+        <li class="list-group-item"> Customizate the permissions to members</li>
+    </ul>
+</div>
+</div>
+{% endblock %}

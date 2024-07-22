@@ -1,0 +1,26 @@
+body{
+    /* background-color: rgb(200, 172, 214); */
+}
+.navbar-nav .nav-item .dropdown-menu {
+    right: 0;
+    left: auto;
+}
+.profile-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.navbar-color{
+    background-color: rgb(23, 21, 59);
+}
+#main-block{
+    min-height: 900px;
+}
+
+#text-color-dark{
+    -webkit-text-fill-color: rgb(34, 40, 49) !important;
+}
+#text-color-light{
+    -webkit-text-fill-color: rgb(238, 238, 238) !important;
+}

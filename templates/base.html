@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %} - Project Management</title>
+    <!-- Include Bootstrap CSS and other necessary CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="{% static 'staticfiles/base.css' %}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-color">
+        <a class="navbar-brand" href="{% url 'Introduction' %}">Project Management</a>
+        <a class="navbar-item active" href="{% url 'docs' %}">Docs</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+
+            <ul class="navbar-nav ml-auto">
+                {% if user.is_authenticated %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="{% static 'sketch.jpg' %}" class="profile-image" alt="Profile Image">
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{% url 'my_projects' %}">My Projects</a>
+                        <a class="dropdown-item" href="{% url 'project_create' %}">Create new project</a>
+                       
+                        <a class="dropdown-item" href="{% url 'invites_page' %}">Your Invites</a>
+                        <a class="dropdown-item" href="{% url 'settings' %}">Settings</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'logout' %}">Log out</a>
+                    </div>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'register' %}">Register</a>
+                    </li>
+                    <li>
+                    <a class="nav-link" href="{% url 'login' %}">Login</a>
+                    </li>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    <div id="main-block" class="container mt-4">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <!-- Include Bootstrap JS and other necessary JS -->
+
+    <div></div>
+</body>
+</html>

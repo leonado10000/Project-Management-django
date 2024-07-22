@@ -1,0 +1,28 @@
+<div class="container mt-5">
+    <h6>Tasks for Project: {{ project.name }}</h6>
+    <a href="{% url 'task_create' project.id %}" class="btn btn-primary mb-3">Create Task</a>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Task ID</th>
+            <th scope="col">Task</th>
+            <th scope="col">Status</th>
+            <th scope="col">assigned to</th>
+            <th scope="col">due date</th>
+          </tr>
+        </thead>
+        <tbody>
+            
+        {% for task in tasks %}
+          <tr>
+            <th scope="row">{{ task.pk }}</th>
+            <td><a href="{% url 'task_detail' project.id task.id %}">{{ task.name }}</a></td>
+            <td> {{ task.get_status_display }} </td>
+            <td> {{ task.assigned_to }} </td>
+            <td> {{ task.due_date }} </td>
+          </tr>
+
+          {% endfor %}
+        </tbody>
+      </table>
+</div>

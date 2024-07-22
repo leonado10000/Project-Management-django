@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block title %}{{ project.name }}{% endblock %}
+
+{% block content %}
+<style>
+    #main-block{
+        margin-left: 100px;
+        margin-right: 100px;
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        border: 2px solid rgb(67, 61, 139);
+        padding-left: 0px;
+        border-radius: 10px;
+    }
+</style>
+
+    {% include 'project_sideview.html' %}
+
+        <div style="padding: 10px;">
+
+        <h5>Features </h5> 
+        <ul>
+            <li>
+            {% for ch in project.features %}
+            {% if ch == ';' %} 
+                </li>
+                <li>
+            {% else %}
+            {{ ch }}        
+            {% endif %}
+            {% endfor %}
+            And More
+        </li>
+        </ul>
+        <h5>Description </h5> 
+        <p>{{ project.description }}</p>
+
+        <h5>Members: </h5>
+        <ul>
+        {% for member in project.members.all %}
+            <li>{{ member.username }}</li>
+        {% empty %}
+            <li>No members assigned.</li>
+        {% endfor %}
+        </ul>
+        <form action="{% url 'invite_user' pk=project.pk %}" method="POST">
+            {% csrf_token %}
+            <input type="text" name="username" id="username">
+            <button type="submit" class="btn btn-primary">Add Members</button>
+        </form>
+    
+        
+    
+        {% include 'task_list.html' %}
+    </div>
+{% endblock %}

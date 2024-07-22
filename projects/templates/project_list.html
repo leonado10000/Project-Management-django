@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Projects{% endblock %}
+
+{% block content %}
+    <style>
+        .intro-box{
+            background-color: rgb(49, 54, 63);        
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+        .all-projects-box{
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            row-gap: 20px;
+        }
+    </style>
+    <h2>My Projects</h2>
+    <div class="intro-box" id="text-color-light">
+        Search Bar
+    </div>
+    <ul class="intro-box all-projects-box">
+    {% for project in projects %}
+        <div class="card" style="width: 18rem;">
+            <!-- <img class="card-img-top" src="{% static 'project2.jpg' %}" alt="Card image cap"> -->
+            <div class="card-body">
+                <h5><a href="{% url 'project_detail' pk=project.pk %}">{{ project.name }}</a></h5>
+              <p class="card-text">{{ project.description }}</p>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Owner: {{ project.owner }} </li>
+              
+              {% if project.project_tags.all %}
+              <li class="list-group-item"> 
+                    {% for t in  project.project_tags.all %}
+                    <p class="btn btn-success"> {{ t }}</p> 
+                     {% endfor %} 
+                </li>
+                {% else %}
+                {% endif %}
+              <li class="list-group-item">team size : {{ project.members.all|length }} </li>
+            </ul>
+            <div class="card-body">
+              <a href="{{ project.github_link }}" class="card-link">Github</a>
+              <a href="{{ project.Live_link }}" class="card-link">Live</a>
+            </div>
+          </div>
+    {% empty %}
+        <li>No projects found.</li>
+    {% endfor %}
+    </ul>
+    <a href="{% url 'project_create' %}" class="btn btn-primary">Create New Project</a>
+{% endblock %}

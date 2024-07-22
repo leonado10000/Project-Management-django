@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}Update Project{% endblock %}
+
+{% block content %}
+<style>
+    tr{
+        border: 2px solid black;
+    }
+    textarea{
+        max-height: fit-content;
+    }
+    #project-owner{
+        background-color: black;
+    }
+</style>
+    <h2>Update Project</h2>
+    <form method="post">
+        {% csrf_token %}
+        <table>
+        {{ form }}
+        <tr>
+            <td>Some Photos</td>
+            <td>
+                <input type="file">
+            </td>
+        </tr>
+    </table>
+        <button type="submit" class="btn btn-primary">Update Project</button>
+    </form>
+{% endblock %}

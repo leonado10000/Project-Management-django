@@ -37,9 +37,36 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    'users',
+    'projects',
+    'tasks',
+    'django.contrib.sites',
+    'crispy_forms',
+    'crispy_bootstrap4',
+    'allauth',
+    'allauth.account',
+    # 'allauth.socialaccount',
+    # 'allauth.account.auth_backends.AuthenticationBackend',
 ]
 # settings.py
-AUTH_USER_MODEL = 'app.User'
+AUTH_USER_MODEL = 'users.User'
+
+SITE_ID = 1
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+# Crispy Forms
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# Allauth settings
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -49,6 +76,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "allauth.account.middleware.AccountMiddleware"
 ]
 
 ROOT_URLCONF = "HeavenOnEarth.urls"
@@ -56,7 +84,12 @@ ROOT_URLCONF = "HeavenOnEarth.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, 'templates')],
+        "DIRS": [
+            os.path.join(BASE_DIR, 'templates'),
+            os.path.join(BASE_DIR, 'tasks/templates'),
+            os.path.join(BASE_DIR, 'projects/templates'),
+            os.path.join(BASE_DIR, 'users/templates')
+            ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -122,12 +155,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "/static/"
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/static ')
+STATIC_ROOT = os.path.join(BASE_DIR, 'sstatic/')
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'app/static'),
     os.path.join(BASE_DIR, 'project/static'),
-    os.path.join(BASE_DIR, 'project/static/projects_posters')
+    os.path.join(BASE_DIR, 'static'),
 ]
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',

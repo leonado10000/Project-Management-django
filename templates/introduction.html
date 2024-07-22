@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block title %} Introduction {% endblock %}
+{% block content %}
+
+<style>
+    .intro-box{
+        background-color: rgb(49, 54, 63);        
+        min-height: 200px;
+        padding: 10px;
+        border-radius: 10px;
+        margin-bottom: 10px;
+    }
+    .grid-for-uses{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 10px;
+        row-gap: 10px;
+    }
+</style>
+
+<h1 >Hello Manager !!</h1>
+<div class="intro-box">
+    <h6 id="text-color-light">So how this works?. Simple, short and sweet</h6>
+
+    <div class="features-box" id="text-color-light">
+        <ul>
+            <li>Make an account</li>
+            <li>Creating a project in yout profile.</li>
+            <li>Add some details to it.</li>
+            <li>That's it</li>
+            <li>You want more, SURE, we got you covered <a href="{% url 'docs' %}">Here's our docs</a></li>
+        </ul>
+    </div>
+
+</div>
+<div class="intro-box grid-for-uses">
+    <a href="{% url 'register'  %}"><button type="button" class="btn btn-info"id="text-color-light" style="width: fit-content;">For Students</button></a>
+    <a href="{% url 'register'  %}"><button type="button" class="btn btn-info"id="text-color-light" style="width: fit-content;">For Professions</button></a>
+    <ul class="list-group">
+        <li class="list-group-item"> Track your projects</li>
+        <li class="list-group-item"> Showcase anywhere: using simple api</li>
+    </ul>
+    
+    <ul id="item-color" class="list-group">
+        <li class="list-group-item"> For streamling workflow</li>
+        <li class="list-group-item"> Customizate Dashboard</li>
+        <li class="list-group-item"> Add Deadlines </li> 
+        <li class="list-group-item"> Delegate tasks </li>
+    </ul>
+
+</div>
+
+{% endblock %}
